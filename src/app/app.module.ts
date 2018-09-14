@@ -4,16 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { NgSuiteModule } from 'ng-suite';
-
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    NgSuiteModule.forRoot()
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
