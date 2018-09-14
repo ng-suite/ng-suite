@@ -21,7 +21,7 @@ function compileLess(content, savePath, min) {
 }
 
 const sourcePath = path.resolve(__dirname, '../projects/ng-suite/src');
-const targetPath = path.resolve(__dirname, '../publish');
+const targetPath = path.resolve(__dirname, '../publish/src');
 
 const targetFolder = fs.readdirSync(targetPath);
 let componentsLessContent = '';
