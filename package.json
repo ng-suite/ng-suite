@@ -46,12 +46,16 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "less": "^2.7.3",
     "less-plugin-clean-css": "^1.5.1",
+    "marked": "^0.5.0",
     "ng-packagr": "^3.0.0-rc.2",
+    "node-prismjs": "^0.1.2",
     "protractor": "~5.3.0",
+    "remark": "^9.0.0",
     "ts-node": "~5.0.1",
     "tsickle": ">=0.25.5",
     "tslib": "^1.7.1",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "yaml-front-matter": "^4.0.0"
   }
 }
