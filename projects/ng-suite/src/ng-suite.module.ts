@@ -1,9 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
+import { NsGridModule } from './grid';
+
+export * from './grid';
+
 @NgModule({
-  imports: [],
-  declarations: [],
-  exports: []
+  exports: [
+    NsGridModule
+  ]
 })
 export class NgSuiteModule { 
   /**
