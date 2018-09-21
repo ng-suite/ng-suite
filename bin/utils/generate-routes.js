@@ -3,7 +3,7 @@ const fs = require('fs');
 const templateRouter = String(fs.readFileSync(path.resolve(__dirname, '../template/router.template.ts')));
 const capitalizeFirstLetter = require('./capitalize-first-letter');
 const camelCase = require('./camelcase');
-module.exports = function generateRoutes(showCaseTargetPath, componentsMap, docsMeta) {
+module.exports = function generateRoutes(demoRootPath, componentsMap, docsMeta) {
   let intro = [];
   let components = [];
   let routes = '';
@@ -22,7 +22,7 @@ module.exports = function generateRoutes(showCaseTargetPath, componentsMap, docs
     });
   }
   intro.sort((pre, next) => pre.order - next.order);
-  fs.writeFileSync(path.join(showCaseTargetPath, `intros.json`), JSON.stringify(intro, null, 2));
+  fs.writeFileSync(path.join(demoRootPath, `intros.json`), JSON.stringify(intro, null, 2));
   const reverseMap = {};
   for (const key in componentsMap) {
     const zh = {
@@ -44,7 +44,7 @@ module.exports = function generateRoutes(showCaseTargetPath, componentsMap, docs
       reverseMap[componentsMap[key].type].push(en);
     }
     const moduleName = capitalizeFirstLetter(camelCase(key));
-    routes += `  {'path': 'components/${key}', 'loadChildren': './${key}/index.module#NzDemo${moduleName}Module'},\n`;
+    routes += `  {'path': 'components/${key}', 'loadChildren': './components/${key}/index.module#NsDemo${moduleName}Module'},\n`;
   }
   for (const key in reverseMap) {
     components.push({
@@ -67,6 +67,6 @@ module.exports = function generateRoutes(showCaseTargetPath, componentsMap, docs
     return sortMap[pre.name] - sortMap[next.name];
   });
   const fileContent = templateRouter.replace(/{{intro}}/g, JSON.stringify(intro, null, 2)).replace(/{{components}}/g, JSON.stringify(components, null, 2)).replace(/{{routes}}/g, routes);
-  fs.writeFileSync(path.join(showCaseTargetPath, `router.ts`), fileContent);
+  fs.writeFileSync(path.join(demoRootPath, `router.ts`), fileContent);
 
 };

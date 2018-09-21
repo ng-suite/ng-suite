@@ -1,0 +1,198 @@
+<article><section class="markdown">
+	
+<h1>Grid<span class="subtitle">栅格</span>
+	<a class="edit-button" href="https://github.com/NG-ZORRO/ng-zorro-antd/edit/master/projects/ng-suite/src/grid/doc/index.zh-CN.md" target="_blank">
+        <i class="anticon anticon-edit"></i>
+    </a>
+</h1>
+	<section class="markdown" ngNonBindable>
+		<p>24 栅格系统。</p>
+<h2 id="设计理念"><span>设计理念</span><a onclick="window.location.hash = '设计理念'" class="anchor">#</a></h2><div class="grid-demo">
+<div class="ns-row demo-row">
+  <div class="ns-col-24 demo-col demo-col-1">
+    100%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-6 demo-col demo-col-2">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-3">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-2">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-3">
+    25%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-8 demo-col demo-col-4">
+    33.33%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-5">
+    33.33%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-4">
+    33.33%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-12 demo-col demo-col-1">
+    50%
+  </div>
+  <div class="ns-col-12 demo-col demo-col-3">
+    50%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-16 demo-col demo-col-4">
+    66.66%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-5">
+    33.33%
+  </div>
+</div>
+</div><p>在多数业务情况下，Ant Design需要在设计区域内解决大量信息收纳的问题，因此在 12 栅格系统的基础上，我们将整个设计建议区域按照 24 等分的原则进行划分。</p>
+<p>划分之后的信息区块我们称之为『盒子』。建议横向排列的盒子数量最多四个，最少一个。『盒子』在整个屏幕上占比见上图。设计部分基于盒子的单位定制盒子内部的排版规则，以保证视觉层面的舒适感。</p>
+<h2 id="概述"><span>概述</span><a onclick="window.location.hash = '概述'" class="anchor">#</a></h2><p>布局的栅格化系统，我们是基于行（row）和列（col）来定义信息区块的外部框架，以保证页面的每个区域能够稳健地排布起来。下面简单介绍一下它的工作原理：</p>
+<ul>
+<li>通过<code>row</code>在水平方向建立一组<code>column</code>（简写col）</li>
+<li>你的内容应当放置于<code>col</code>内，并且，只有<code>col</code>可以作为<code>row</code>的直接元素</li>
+<li>栅格系统中的列是指1到24的值来表示其跨越的范围。例如，三个等宽的列可以使用<code>.col-8</code>来创建</li>
+<li>如果一个<code>row</code>中的<code>col</code>总和超过 24，那么多余的<code>col</code>会作为一个整体另起一行排列</li>
+</ul>
+<h2 id="flex-布局"><span>Flex 布局</span><a onclick="window.location.hash = 'flex-布局'" class="anchor">#</a></h2><p>我们的栅格化系统支持 Flex 布局，允许子元素在父节点内的水平对齐方式 - 居左、居中、居右、等宽排列、分散排列。子元素与子元素之间，支持顶部对齐、垂直居中对齐、底部对齐的方式。同时，支持使用 order 来定义元素的排列顺序。</p>
+<p>Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排版则不拘泥于栅格。</p>
+
+	</section>
+	<h2>
+		<span>代码演示</span>
+		<i class="anticon anticon-appstore code-box-expand-trigger" title="展开全部代码" (click)="expandAllCode()"></i>
+	</h2>
+</section><div ns-row [nsGutter]="8">
+	<div ns-col [nsSpan]="24">
+		<ns-code-box
+	nsId="components-grid-demo-basic"
+	nsTitle="基础栅格">
+	<ns-demo-grid-basic demo></ns-demo-grid-basic>
+	<div intro ngNonBindable>
+		<p>从堆叠到水平排列。</p>
+<p>使用单一的一组 <code>nz-row</code> 和 <code>nz-col</code> 栅格组件，就可以创建一个基本的栅格系统，所有列（<code>nz-col</code>）必须放在 <code>nz-row</code> 内。</p>
+
+	</div>
+</ns-code-box>
+	</div>
+</div><section class="markdown api-container" ngNonBindable><h2 id="api"><span>API</span><a onclick="window.location.hash = 'api'" class="anchor">#</a></h2><h3 id="[nz-row]"><span>[nz-row]</span><label class="api-type-label directive">directive</label><a onclick="window.location.hash = '[nz-row]'" class="anchor">#</a></h3><table>
+<thead>
+<tr>
+<th>成员</th>
+<th>说明</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[nzAlign]</code></td>
+<td>flex 布局下的垂直对齐方式：<code>top</code> <code>middle</code> <code>bottom</code></td>
+<td>string</td>
+<td><code>top</code></td>
+</tr>
+<tr>
+<td><code>[nzGutter]</code></td>
+<td>栅格间隔，可以写成像素值或支持响应式的对象写法 <code>&#123; xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 &#125;</code></td>
+<td>number/object</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzJustify]</code></td>
+<td>flex 布局下的水平排列方式：<code>start</code> <code>end</code> <code>center</code> <code>space-around</code> <code>space-between</code></td>
+<td>string</td>
+<td><code>start</code></td>
+</tr>
+<tr>
+<td><code>[nzType]</code></td>
+<td>布局模式，可选 <code>flex</code>，<a href="http://caniuse.com/#search=flex">现代浏览器</a> 下有效</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="[nz-col]"><span>[nz-col]</span><label class="api-type-label directive">directive</label><a onclick="window.location.hash = '[nz-col]'" class="anchor">#</a></h3><table>
+<thead>
+<tr>
+<th>成员</th>
+<th>说明</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[nzOffset]</code></td>
+<td>栅格左侧的间隔格数，间隔内不可以有栅格</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzOrder]</code></td>
+<td>栅格顺序，<code>flex</code> 布局模式下有效</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzPull]</code></td>
+<td>栅格向左移动格数</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzPush]</code></td>
+<td>栅格向右移动格数</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzSpan]</code></td>
+<td>栅格占位格数，为 0 时相当于 <code>display: none</code></td>
+<td>number</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzXs]</code></td>
+<td><code>&lt;576px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzSm]</code></td>
+<td><code>≥576px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzMd]</code></td>
+<td><code>≥768px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzLg]</code></td>
+<td><code>≥992px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzXl]</code></td>
+<td><code>≥1200px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzXXl]</code></td>
+<td><code>≥1600px</code> 响应式栅格，可为栅格数或一个包含其他属性的对象</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>响应式栅格的断点扩展自 <a href="https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints">BootStrap 4 的规则</a>（不包含链接里 <code>occasionally</code> 的部分)。</p>
+</section></article>

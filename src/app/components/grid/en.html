@@ -1,0 +1,199 @@
+<article><section class="markdown">
+	
+<h1>Grid<span class="subtitle"></span>
+	<a class="edit-button" href="https://github.com/NG-ZORRO/ng-zorro-antd/edit/master/projects/ng-suite/src/grid/doc/index.en-US.md" target="_blank">
+        <i class="anticon anticon-edit"></i>
+    </a>
+</h1>
+	<section class="markdown" ngNonBindable>
+		<p>24 Grids System。</p>
+<h2 id="design-concept"><span>Design concept</span><a onclick="window.location.hash = 'design-concept'" class="anchor">#</a></h2><div class="grid-demo">
+<div class="ns-row demo-row">
+  <div class="ns-col-24 demo-col demo-col-1">
+    100%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-6 demo-col demo-col-2">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-3">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-2">
+    25%
+  </div>
+  <div class="ns-col-6 demo-col demo-col-3">
+    25%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-8 demo-col demo-col-4">
+    33.33%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-5">
+    33.33%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-4">
+    33.33%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-12 demo-col demo-col-1">
+    50%
+  </div>
+  <div class="ns-col-12 demo-col demo-col-3">
+    50%
+  </div>
+</div>
+<div class="ns-row demo-row">
+  <div class="ns-col-16 demo-col demo-col-4">
+    66.66%
+  </div>
+  <div class="ns-col-8 demo-col demo-col-5">
+    33.33%
+  </div>
+</div>
+</div><p>In most business situations, Ant Design needs to solve a lot of information storage problems within the design area, so based on 12 Grids System, we divided the design area into 24 aliquots.</p>
+<p>We name the divided area &#39;box&#39;. We suggest four boxes for horizontal arrangement at most, one at least. Boxes are proportional to the entire screen as shown in the picture above. To ensure a high level of visual comfort, we customize the typography inside of the box based on the box unit.</p>
+<h2 id="outline"><span>Outline</span><a onclick="window.location.hash = 'outline'" class="anchor">#</a></h2><p>In the grid system, we define the frame outside the information area based on <code>row</code> and <code>column</code>, to ensure that every area can have stable arrangement.</p>
+<p>Following is a brief look at how it works:</p>
+<ul>
+<li>Establish a set of <code>column</code> in the horizontal space defined by <code>row</code> (abbreviated col)</li>
+<li>Your content elements should be placed directly in the <code>col</code>, and only <code>col</code> should be placed directly in <code>row</code></li>
+<li>The column grid system is a value of 1-24 to represent its range spans. For example, three columns of equal width can be created by <code>.col-8</code> (<code>span=8</code>).</li>
+<li>If the sum of <code>col</code> spans in a <code>row</code> are more than 24, then the overflowing <code>col</code> as a whole will start a new line arrangement.</li>
+</ul>
+<h2 id="flex-layout"><span>Flex layout</span><a onclick="window.location.hash = 'flex-layout'" class="anchor">#</a></h2><p>Our grid systems support Flex layout to allow the elements within the parent to be aligned horizontally - left, center, right, wide arrangement, and decentralized arrangement. The Grid system also supports vertical alignment - top aligned, vertically centered, bottom-aligned. You can also define the order of elements by using <code>order</code>.</p>
+<p>Flex layout uses a 24 grid layout to define the width of each &quot;box&quot;, but does not rigidly adhere to the grid layout.</p>
+
+	</section>
+	<h2>
+		<span>Examples</span>
+		<i class="anticon anticon-appstore code-box-expand-trigger" title="expand all code" (click)="expandAllCode()"></i>
+	</h2>
+</section><div ns-row [nsGutter]="8">
+	<div ns-col [nsSpan]="24">
+		<ns-code-box
+	nsId="components-grid-demo-basic"
+	nsTitle="Basic Grid">
+	<ns-demo-grid-basic demo></ns-demo-grid-basic>
+	<div intro ngNonBindable>
+		<p>From the stack to the horizontal arrangement.</p>
+<p>You can create a basic grid system by using a single set of <code>nz-row</code> and <code>nz-col</code> grid assembly, all of the columns (<code>nz-col</code>) must be placed in <code>nz-row</code>.</p>
+
+	</div>
+</ns-code-box>
+	</div>
+</div><section class="markdown api-container" ngNonBindable><h2 id="api"><span>API</span><a onclick="window.location.hash = 'api'" class="anchor">#</a></h2><h3 id="[nz-row]"><span>[nz-row]</span><label class="api-type-label directive">directive</label><a onclick="window.location.hash = '[nz-row]'" class="anchor">#</a></h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[nzAlign]</code></td>
+<td>the vertical alignment of the flex layout: <code>top</code> <code>middle</code> <code>bottom</code></td>
+<td>string</td>
+<td><code>top</code></td>
+</tr>
+<tr>
+<td><code>[nzGutter]</code></td>
+<td>spacing between grids, could be a number or a object like <code>&#123; xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 &#125;</code></td>
+<td>number/object</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzJustify]</code></td>
+<td>horizontal arrangement of the flex layout: <code>start</code> <code>end</code> <code>center</code> <code>space-around</code> <code>space-between</code></td>
+<td>string</td>
+<td><code>start</code></td>
+</tr>
+<tr>
+<td><code>[nzType]</code></td>
+<td>layout mode, optional <code>flex</code>, <a href="http://caniuse.com/#search=flex">browser support</a></td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="[nz-col]"><span>[nz-col]</span><label class="api-type-label directive">directive</label><a onclick="window.location.hash = '[nz-col]'" class="anchor">#</a></h3><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[nzOffset]</code></td>
+<td>the number of cells to offset Col from the left</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzOrder]</code></td>
+<td>raster order, used in <code>flex</code> layout mode</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzPull]</code></td>
+<td>the number of cells that raster is moved to the left</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzPush]</code></td>
+<td>the number of cells that raster is moved to the right</td>
+<td>number</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[nzSpan]</code></td>
+<td>raster number of cells to occupy, 0 corresponds to <code>display: none</code></td>
+<td>number</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>[nzXs]</code></td>
+<td><code>&lt;576px</code> and also default setting, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzSm]</code></td>
+<td><code>≥576px</code>, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzMd]</code></td>
+<td><code>≥768px</code>, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzLg]</code></td>
+<td><code>≥992px</code>, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzXl]</code></td>
+<td><code>≥1200px</code>, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>[nzXXl]</code></td>
+<td><code>≥1600px</code>, could be a <code>span</code> value or an object containing above props</td>
+<td>number丨object</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>The breakpoints of responsive grid follow <a href="https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints">BootStrap 4 media queries rules</a>(not including <code>occasionally part</code>).</p>
+</section></article>

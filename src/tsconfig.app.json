@@ -2,11 +2,23 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
+    "baseUrl": "./",
     "module": "es2015",
-    "types": []
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "ng-suite": [
+        "../projects/ng-suite/public_api.ts"
+      ]
+    }
   },
   "exclude": [
-    "src/test.ts",
+    "test.ts",
     "**/*.spec.ts"
-  ]
+  ],
+  "include": [
+    "../src/**/*"
+  ],
+  "strictNullChecks": true
 }

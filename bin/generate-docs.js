@@ -5,40 +5,43 @@ const parseDemoMdUtil = require('./utils/parse-demo-md');
 const nameWithoutSuffixUtil = require('./utils/name-without-suffix');
 const generateCodeBox = require('./utils/generate-code-box');
 const generateDemo = require('./utils/generate-demo');
-const generateDocs = require('./utils/generate-docs');
+// const generateDocs = require('./utils/generate-docs');
 const generateRoutes = require('./utils/generate-routes');
-const getMeta = require('./utils/get-meta');
+// const getMeta = require('./utils/get-meta');
 
-// 根目录路径
-const rootPath = path.resolve(__dirname, `../src/app`);
-// 组件文件夹路径
-const componentsDirPath = `${rootPath}/components`;
-// 创建组件文件夹
-fs.removeSync(componentsDirPath);
-fs.mkdirSync(componentsDirPath);
+/**
+ * 创建文档demo项目组件目录
+ * 文档项目路径   ： ../src/app
+ * 文档项目demo组件路径： ../src/app/components
+ */
+const demoRootPath = path.resolve(__dirname, `../src/app`);
+const demoComponentsDirPath = `${demoRootPath}/components`;
+fs.removeSync(demoComponentsDirPath);
+fs.mkdirSync(demoComponentsDirPath);
 
 
+// package 组件路径
+const rootPath = path.resolve(__dirname, '../projects/ng-suite/src');
 // 读取components文件夹
-const sourceComponentsDirPath = path.resolve(__dirname, '../projects/ng-suite/src');
-const sourceComponentsDir = fs.readdirSync(sourceComponentsDirPath);
+const rootDir = fs.readdirSync(rootPath);
 const componentsMap = {};
-sourceComponentsDir.forEach(componentName => {
+rootDir.forEach(componentName => {
   const componentDirPath = path.join(rootPath, componentName);
-  if (componentName === 'style') {
+  if (componentName === 'style' || componentName === 'core') {
     return;
   }
   if (fs.statSync(componentDirPath).isDirectory()) {
-    // 创建site->${component}文件夹
-    const showCaseComponentPath = path.join(componentsDirPath, componentName);
-    fs.mkdirSync(showCaseComponentPath);
+    // 在文档项目当中创建对应demo组件的目录
+    const domeComponentPath = path.join(demoComponentsDirPath, componentName);
+    fs.mkdirSync(domeComponentPath);
 
     // 处理components->${component}->demo文件夹
     const demoDirPath = path.join(componentDirPath, 'demo');
     const demoMap = {};
-    if (fs.existsSync(demoDirPath)) {
+    if (fs.existsSync(demoDirPath)) { // 判断demo文件是否存在（源组件）
       const demoDir = fs.readdirSync(demoDirPath);
       demoDir.forEach(demo => {
-
+        // 处理文档文件
         if (/.md$/.test(demo)) {
           const nameKey = nameWithoutSuffixUtil(demo);
           const demoMarkDownFile = fs.readFileSync(path.join(demoDirPath, demo));
@@ -46,15 +49,17 @@ sourceComponentsDir.forEach(componentName => {
           demoMap[nameKey]['enCode'] = generateCodeBox(componentName, nameKey, demoMap[nameKey].meta.title["en-US"], demoMap[nameKey].en, demoMap[nameKey].meta.iframe);
           demoMap[nameKey]['zhCode'] = generateCodeBox(componentName, nameKey, demoMap[nameKey].meta.title["zh-CN"], demoMap[nameKey].zh, demoMap[nameKey].meta.iframe);
         }
-        if (/.ts$/.test(demo)) {
+        // 处理demo
+        if (/.ts$/.test(demo)) { 
           const nameKey = nameWithoutSuffixUtil(demo);
           demoMap[nameKey].ts = String(fs.readFileSync(path.join(demoDirPath, demo)));
-          // 复制ts文件到site->${component}文件夹
-          fs.writeFileSync(path.join(showCaseComponentPath, demo), demoMap[nameKey].ts);
+          // 复制ts文件到文档项目对应的demo组件文件夹
+          fs.writeFileSync(path.join(domeComponentPath, demo), demoMap[nameKey].ts);
         }
       });
     }
-    // 处理components->${component}->doc文件夹
+
+    // 处理components的doc文件夹
     const result = {
       name   : componentName,
       docZh  : parseDocMdUtil(fs.readFileSync(path.join(componentDirPath, 'doc/index.zh-CN.md')), `projects/ng-suite/src/${componentName}/doc/index.zh-CN.md`),
@@ -63,6 +68,9 @@ sourceComponentsDir.forEach(componentName => {
     };
     componentsMap[componentName] = result.docZh.meta;
 
-    generateDemo(showCaseComponentPath, result);
+    generateDemo(domeComponentPath, result);
   }
 });
+
+let docsMeta = {};
+generateRoutes(demoRootPath, componentsMap, docsMeta);

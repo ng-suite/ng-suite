@@ -3,15 +3,15 @@ const fs = require('fs');
 const capitalizeFirstLetter = require('./capitalize-first-letter');
 const camelCase = require('./camelcase');
 const PrismAngular = require('./angular-language-marked');
-module.exports = function (showCaseComponentPath, result) {
+module.exports = function (domeComponentPath, result) {
   const demoTemplate = generateTemplate(result);
-  fs.writeFileSync(path.join(showCaseComponentPath, `zh.html`), demoTemplate.zh);
-  fs.writeFileSync(path.join(showCaseComponentPath, `en.html`), demoTemplate.en);
+  fs.writeFileSync(path.join(domeComponentPath, `zh.html`), demoTemplate.zh);
+  fs.writeFileSync(path.join(domeComponentPath, `en.html`), demoTemplate.en);
   const demoComponent = generateDemoComponent(result);
-  fs.writeFileSync(path.join(showCaseComponentPath, `zh.component.ts`), demoComponent.zh);
-  fs.writeFileSync(path.join(showCaseComponentPath, `en.component.ts`), demoComponent.en);
+  fs.writeFileSync(path.join(domeComponentPath, `zh.component.ts`), demoComponent.zh);
+  fs.writeFileSync(path.join(domeComponentPath, `en.component.ts`), demoComponent.en);
   const demoModule = generateDemoModule(result);
-  fs.writeFileSync(path.join(showCaseComponentPath, `index.module.ts`), demoModule);
+  fs.writeFileSync(path.join(domeComponentPath, `index.module.ts`), demoModule);
 };
 
 function generateDemoModule(content) {
@@ -22,17 +22,17 @@ function generateDemoModule(content) {
   let declarations = '';
   let entryComponents = [];
   for (const key in demoMap) {
-    const declareComponents = [`NzDemo${componentName(component)}${componentName(key)}Component`];
+    const declareComponents = [`NsDemo${componentName(component)}${componentName(key)}Component`];
     const entries = retrieveEntryComponents(demoMap[key] && demoMap[key].ts);
     entryComponents.push(...entries);
     declareComponents.push(...entries);
     imports += `import { ${declareComponents.join(', ')} } from './${key}';\n`;
     declarations += `\t\t${declareComponents.join(',\n\t')},\n`;
   }
-  imports += `import { NzDemo${componentName(component)}ZhComponent } from './zh.component';\n`;
-  imports += `import { NzDemo${componentName(component)}EnComponent } from './en.component';\n`;
-  declarations += `\t\tNzDemo${componentName(component)}ZhComponent,\n`;
-  declarations += `\t\tNzDemo${componentName(component)}EnComponent,\n`;
+  imports += `import { NsDemo${componentName(component)}ZhComponent } from './zh.component';\n`;
+  imports += `import { NsDemo${componentName(component)}EnComponent } from './en.component';\n`;
+  declarations += `\t\tNsDemo${componentName(component)}ZhComponent,\n`;
+  declarations += `\t\tNsDemo${componentName(component)}EnComponent,\n`;
   return demoModuleTemplate.replace(/{{imports}}/g, imports).replace(/{{declarations}}/g, declarations).replace(/{{component}}/g, componentName(component)).replace(/{{entryComponents}}/g, entryComponents.join(',\n'));
 }
 
@@ -41,7 +41,7 @@ function componentName(component) {
 }
 
 function generateComponentName(component, language) {
-  return `NzDemo${componentName(component)}${capitalizeFirstLetter(language)}Component`
+  return `NsDemo${componentName(component)}${capitalizeFirstLetter(language)}Component`
 }
 
 
@@ -127,18 +127,19 @@ function generateToc(language, name, demoMap) {
   for (const key in demoMap) {
     linkArray.push(
       {
-        content: `<nz-link nzHref="#components-${name}-demo-${key}" nzTitle="${demoMap[key].meta.title[language]}"></nz-link>`,
+        content: `<ns-link nsHref="#components-${name}-demo-${key}" nsTitle="${demoMap[key].meta.title[language]}"></ns-link>`,
         order  : demoMap[key].meta.order
       }
     );
   }
   linkArray.sort((pre, next) => pre.order - next.order);
   const links = linkArray.map(link => link.content).join('');
-  return `<nz-affix class="toc-affix" [nzOffsetTop]="16">
-    <nz-anchor [nzAffix]="false" nzShowInkInFixed (nzClick)="goLink($event)">
-      ${links}
-    </nz-anchor>
-  </nz-affix>`;
+  return ``;
+  // return `<ns-affix class="toc-affix" [nsOffsetTop]="16">
+  //   <ns-anchor [nsAffix]="false" nsShowInkInFixed (nsClick)="goLink($event)">
+  //     ${links}
+  //   </ns-anchor>
+  // </ns-affix>`;
 }
 
 function generateExample(result) {
